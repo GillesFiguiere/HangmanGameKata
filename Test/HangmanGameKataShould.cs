@@ -28,6 +28,9 @@ public class HangmanGameKataShould
     [InlineData("AZER", 'Z', "#Z##")]
     [InlineData("AZER", 'E', "##E#")]
     [InlineData("AZERA", 'A', "A###A")]
+    [InlineData("AZERA", 'a', "A###A")] // check case 
+    [InlineData("AzER", 'z', "#Z##")] // check case 
+    [InlineData("AzER", 'Z', "#Z##")] // check case 
     [Description("Return A### when user types A and word to guess is AZER")]
     void ReturnWhenUserTypesA(string wordToGuess, char userLetter, string expectedResult)
     {
@@ -40,5 +43,7 @@ public class HangmanGameKataShould
         // THEN
         result.Should().Be(expectedResult);
     }
+    
+   
     
 }

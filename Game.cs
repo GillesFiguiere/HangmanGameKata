@@ -8,13 +8,15 @@ internal class Game
 
     public Game(string wordToGuess)
     {
-        _wordToGuess = wordToGuess;
+        _wordToGuess = wordToGuess.ToUpper();
     }
 
     public string Try(char userLetter)
     {
-        var result = _wordToGuess.Aggregate("", (current, lettre) => 
-            lettre == userLetter ? current + userLetter : current + "#"
+        char userLetterUpper = char.ToUpper(userLetter);
+        
+        var result = _wordToGuess.Aggregate("", (wipResult, wordToGuessCurrentLetter) => 
+            wordToGuessCurrentLetter == userLetterUpper ? wipResult + userLetterUpper : wipResult + "#"
         );
 
         return result;
