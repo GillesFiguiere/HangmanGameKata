@@ -13,15 +13,9 @@ internal class Game
 
     public string Try(char userLetter)
     {
-        var result = _wordToGuess.Aggregate("", (current, lettre) => { 
-            if(lettre == userLetter) { 
-                return current + userLetter;
-            }
-            else
-            {
-                return current + "#";
-            }
-        });
+        var result = _wordToGuess.Aggregate("", (current, lettre) => 
+            lettre == userLetter ? current + userLetter : current + "#"
+        );
 
         return result;
     }
