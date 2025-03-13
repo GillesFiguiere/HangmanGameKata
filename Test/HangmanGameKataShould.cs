@@ -36,4 +36,20 @@ public class HangmanGameKataShould
         // THEN
         result.Should().Be("A###");
     }
+    
+    [Fact]
+    [Description("Return #Z## when user types Z and word to guess is AZER")]
+    void ReturnWhenUserTypesZ()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+
+        // WHEN
+        var result = game.Try('Z');
+
+        // THEN
+        result.Should().Be("#Z##");
+    }
+    
+    
 }
