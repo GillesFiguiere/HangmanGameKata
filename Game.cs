@@ -1,33 +1,42 @@
-﻿using System.Net.Security;
+﻿using System.Collections;
 
 namespace HangmanGameKata;
 
-internal class Game
+public class Game(string wordToGuess)
 {
-    private readonly string _wordToGuess;
-    private string _hidenWordToGuess;
+    private readonly WordToGuess _wordToGuess = new(wordToGuess);
 
-    public Game(string wordToGuess)
+    public string Try(char userLetter) => _wordToGuess.Try(userLetter);
+}
+
+public class WordToGuess
+{
+    public string Try(char c)
+        => _wordToGuess.Aggregate("",
+            (resultInProgress, currentChar)
+                => string.Concat(resultInProgress, currentChar.Try(c)));
+
+    private readonly List<CharToGuess> _wordToGuess;
+
+    public WordToGuess(string wordToGuess) => 
+        _wordToGuess = wordToGuess
+            .Select(e => new CharToGuess(e))
+            .ToList();
+}
+
+public class CharToGuess(char charToGuess)
+{
+    public char Try(char c)
     {
-        _wordToGuess = wordToGuess.ToUpper();
-        _hidenWordToGuess = string.Concat(Enumerable.Repeat('#', _wordToGuess.Length));
-    }
-
-    public string Try(char userLetter)
-    {
-        char userLetterUpper = char.ToUpper(userLetter);
-
-        var result = "";
-        for (var index = 0; index < _wordToGuess.Length; index++)
+        if (char.ToUpper(c) == _charToGuess)
         {
-            var c = _wordToGuess[index];
-            result = c == userLetterUpper
-                ? result + userLetterUpper
-                : result + _hidenWordToGuess[index];
+            _state = _charToGuess;
         }
 
-        _hidenWordToGuess = result;
-
-        return _hidenWordToGuess;
+        return _state;
     }
+
+    private readonly char _charToGuess = char.ToUpper(charToGuess);
+
+    private char _state = '#';
 }
