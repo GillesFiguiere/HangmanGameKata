@@ -17,7 +17,7 @@ public class HangmanGameKataShould
         var game = new Game("AZER");
 
         // WHEN
-        var result = game.Try('Q');
+        var result = game.Try('Q').ToString();
 
         // THEN
         result.Should().Be("####");
@@ -38,7 +38,7 @@ public class HangmanGameKataShould
         var game = new Game(wordToGuess);
 
         // WHEN
-        var result = game.Try(userLetter);
+        var result = game.Try(userLetter).ToString();
 
         // THEN
         result.Should().Be(expectedResult);
@@ -52,11 +52,13 @@ public class HangmanGameKataShould
         var game = new Game("AZER");
 
         // WHEN
-        game.Try('A'); 
-        var result = game.Try('Z');
+        var result = game
+            .Try('A')
+            .Try('Z')
+            .ToString();
 
         // THEN
-        result.Should().Be("AZ##");
+        result.Should().BeEquivalentTo("AZ##");
     }
     
 }

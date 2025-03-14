@@ -1,42 +1,64 @@
-﻿using System.Collections;
+﻿namespace HangmanGameKata;
 
-namespace HangmanGameKata;
-
-public class Game(string wordToGuess)
+public class Game
 {
-    private readonly WordToGuess _wordToGuess = new(wordToGuess);
+    private readonly WordToGuess _wordToGuess;
 
-    public string Try(char userLetter) => _wordToGuess.Try(userLetter);
+    public Game(string wordToGuess) : this(new WordToGuess(wordToGuess))
+    {
+    }
+
+    private Game(WordToGuess wordToGuess) => _wordToGuess = wordToGuess;
+
+    public Game Try(char userLetter) => new(_wordToGuess.Try(userLetter));
+
+    public override string ToString() => _wordToGuess.ToString();
+
+    public static implicit operator string(Game g) => g.ToString();
 }
 
 public class WordToGuess
 {
-    public string Try(char c)
-        => _wordToGuess.Aggregate("",
-            (resultInProgress, currentChar)
-                => string.Concat(resultInProgress, currentChar.Try(c)));
+    public WordToGuess Try(char c)
+        => new (_wordToGuess.Select(charToGuess => charToGuess.Try(c)));
 
     private readonly List<CharToGuess> _wordToGuess;
 
-    public WordToGuess(string wordToGuess) => 
-        _wordToGuess = wordToGuess
+    private WordToGuess(IEnumerable<CharToGuess> wordToGuess)
+        => _wordToGuess = wordToGuess.ToList();
+
+    public WordToGuess(string wordToGuess)
+        => _wordToGuess = wordToGuess
             .Select(e => new CharToGuess(e))
             .ToList();
+
+    public override string ToString() => string.Concat(_wordToGuess);
 }
 
-public class CharToGuess(char charToGuess)
+public class CharToGuess
 {
-    public char Try(char c)
-    {
-        if (char.ToUpper(c) == _charToGuess)
-        {
-            _state = _charToGuess;
-        }
+    public CharToGuess Try(char c) =>
+        new(
+            _charToGuess,
+            guessed: _guessed || char.ToUpper(c) == _charToGuess
+        );
 
-        return _state;
+    private readonly char _charToGuess;
+
+    private readonly bool _guessed;
+
+    public override string ToString() 
+        => _guessed 
+            ? _charToGuess.ToString()
+            : "#";
+
+    private CharToGuess(char charToGuess, bool guessed)
+    {
+        _charToGuess = char.ToUpper(charToGuess);
+        _guessed = guessed;
     }
 
-    private readonly char _charToGuess = char.ToUpper(charToGuess);
-
-    private char _state = '#';
+    public CharToGuess(char charToGuess) : this(charToGuess, guessed: false)
+    {
+    }
 }
