@@ -1,6 +1,4 @@
-﻿using System.Net.Security;
-
-namespace HangmanGameKata;
+﻿namespace HangmanGameKata;
 
 internal class Game
 {
@@ -17,23 +15,28 @@ internal class Game
     {
 
         char userLetterUpper = char.ToUpper(userLetter);
-      
+
         var result = string.Empty;
 
-        for(int i = 0; i < _wordToGuess.Length;i++)
+        for (int i = 0; i < _wordToGuess.Length; i++)
         {
             char c = _wordToGuess[i];
-            if (_currentGuess[i] != '#' )
+            if (IsCurrentCharacterGuessed(i))
             {
                 result += _currentGuess[i];
             }
             else
             {
-                result += userLetterUpper == c ?  userLetterUpper : "#";
+                result += userLetterUpper == c ? userLetterUpper : "#";
             }
         }
         _currentGuess = result;
 
         return result;
+    }
+
+    private bool IsCurrentCharacterGuessed(int index)
+    {
+        return _currentGuess[index] != '#';
     }
 }
