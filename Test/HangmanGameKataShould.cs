@@ -72,6 +72,19 @@ public class HangmanGameKataShould
         
         // THEN
         game.Errors.Should().Be(1);
-
+    }
+    
+    [Fact]
+    [Description("")]
+    void CheckNumbersOfErrorsIfNoErrors()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        
+        // WHEN
+        game.Try('A');
+        
+        // THEN
+        game.Errors.Should().Be(0);
     }
 }

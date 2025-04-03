@@ -11,7 +11,7 @@ internal class Game
         _currentGuess = string.Concat(Enumerable.Repeat('#', wordToGuess.Length));
     }
 
-    public int Errors { get; } = 1;
+    public int Errors { get; private set; } = 0;
 
     public string Try(char userLetter)
     {
@@ -19,6 +19,8 @@ internal class Game
         char userLetterUpper = char.ToUpper(userLetter);
 
         var result = string.Empty;
+        
+        bool inputIsIncorrect = true;
 
         for (int i = 0; i < _wordToGuess.Length; i++)
         {
@@ -29,9 +31,14 @@ internal class Game
             }
             else
             {
-                result += userLetterUpper == c ? userLetterUpper : "#";
+                var charIsCorrect =  userLetterUpper == c;
+                result += charIsCorrect ? userLetterUpper : "#";
+                if (inputIsIncorrect)
+                    inputIsIncorrect = !charIsCorrect;
+                
             }
         }
+        Errors += inputIsIncorrect ? 1 : 0;
         _currentGuess = result;
 
         return result;
