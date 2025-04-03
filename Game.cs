@@ -11,6 +11,8 @@ internal class Game
         _currentGuess = string.Concat(Enumerable.Repeat('#', wordToGuess.Length));
     }
 
+    public int Errors { get; } = 1;
+
     public string Try(char userLetter)
     {
 

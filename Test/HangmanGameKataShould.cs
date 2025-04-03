@@ -59,4 +59,19 @@ public class HangmanGameKataShould
         // THEN
         result.Should().Be("AZ##");
     }
+
+    [Fact]
+    [Description("Check if numbers of errors has increased")]
+    void CheckNumbersOfErrorsHasIncreased()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        
+        // WHEN
+        game.Try('M');
+        
+        // THEN
+        game.Errors.Should().Be(1);
+
+    }
 }
