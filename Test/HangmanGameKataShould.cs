@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using FluentAssertions;
+﻿using FluentAssertions;
+using System.ComponentModel;
 using Xunit;
 
 namespace HangmanGameKata.Test;
@@ -25,6 +25,7 @@ public class HangmanGameKataShould
 
     [Theory]
     [InlineData("AZER", 'A', "A###")]
+    [InlineData("AZER", '9', "####")] // user types anything but a letter
     [InlineData("AZER", 'Z', "#Z##")]
     [InlineData("AZER", 'E', "##E#")]
     [InlineData("AZERA", 'A', "A###A")]
@@ -43,7 +44,7 @@ public class HangmanGameKataShould
         // THEN
         result.Should().Be(expectedResult);
     }
-    
+
     [Fact]
     [Description("Return AZ## when user types A then Z and word to guess is AZER")]
     void ReturnWhenUserTypesAThenZ()
@@ -52,11 +53,10 @@ public class HangmanGameKataShould
         var game = new Game("AZER");
 
         // WHEN
-        game.Try('A'); 
+        game.Try('A');
         var result = game.Try('Z');
 
         // THEN
         result.Should().Be("AZ##");
     }
-    
 }
