@@ -73,7 +73,7 @@ public class HangmanGameKataShould
         // THEN
         game.Errors.Should().Be(1);
     }
-    
+
     [Fact]
     [Description("")]
     void CheckNumbersOfErrorsIfNoErrors()
@@ -86,5 +86,33 @@ public class HangmanGameKataShould
         
         // THEN
         game.Errors.Should().Be(0);
+    }
+
+    [Fact]
+    [Description("")]
+    void HaveNoErrorBeforeAnyUserInput()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        
+        // WHEN
+        // THEN
+        game.Errors.Should().Be(0);
+    }
+
+    [Fact]
+    [Description("Return AZ## when user types A then Z and word to guess is AZER")]
+    void HaveTheRightNumberOfErrors()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+
+        for (int i = 1; i < 9; i++)
+        {
+            // WHEN
+            game.Try('M');
+            // THEN
+            game.Errors.Should().Be(i);
+        }
     }
 }
