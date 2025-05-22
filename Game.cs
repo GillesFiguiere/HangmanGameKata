@@ -17,11 +17,11 @@ internal class Game
 
     public string Try(char userLetter)
     {
-        if (!char.IsLetter(userLetter)) return _currentGuess;
-
         if (IsVictory()) return Victory;
 
         if (IsGameOver()) return GameOver;
+
+        if (!char.IsLetter(userLetter)) return _currentGuess;
 
         char userLetterUpper = char.ToUpper(userLetter);
 

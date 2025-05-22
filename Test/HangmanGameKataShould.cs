@@ -227,11 +227,9 @@ public class HangmanGameKataShould
         var result = "";
 
         // WHEN
-        for (int i = 1; i <= 9; i++)
+        for (int i = 1; i <= 10; i++)
         {
             result = game.Try('M');
-            //THEN
-            result.Should().Be("####");
         }
 
         result = game.Try('A');
@@ -241,5 +239,6 @@ public class HangmanGameKataShould
 
         //THEN
         result.Should().Be("GAME OVER");
+        game.Errors.Should().Be(10);
     }
 }
