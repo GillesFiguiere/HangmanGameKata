@@ -117,7 +117,6 @@ public class HangmanGameKataShould
     }
 
     [Fact]
-    [Description("")]
     void HaveNoError_WhenWordToGuessIsAZER_AndUserTypesANumber()
     {
         // GIVEN
@@ -128,6 +127,21 @@ public class HangmanGameKataShould
         
         // THEN
         result.Should().Be("####");
+        game.Errors.Should().Be(0);
+    }
+    
+    [Fact]
+    void HaveNoError_WhenWordToGuessIsAZER_AndUserTypesEThenANumber()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        
+        // WHEN
+         game.Try('E');
+         var result = game.Try('1');
+        
+        // THEN
+        result.Should().Be("##E#");
         game.Errors.Should().Be(0);
     }
 }
