@@ -15,7 +15,8 @@ internal class Game
 
     public string Try(char userLetter)
     {
-
+        if (!char.IsLetter(userLetter)) return _currentGuess;
+        
         char userLetterUpper = char.ToUpper(userLetter);
 
         var result = string.Empty;

@@ -115,4 +115,19 @@ public class HangmanGameKataShould
             game.Errors.Should().Be(i);
         }
     }
+
+    [Fact]
+    [Description("")]
+    void HaveNoError_WhenWordToGuessIsAZER_AndUserTypesANumber()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        
+        // WHEN
+        var result = game.Try('1');
+        
+        // THEN
+        result.Should().Be("####");
+        game.Errors.Should().Be(0);
+    }
 }
