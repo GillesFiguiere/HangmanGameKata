@@ -155,12 +155,27 @@ public class HangmanGameKataShould
         // WHEN
         for (int i = 1; i <= 10; i++)
         {
-            // WHEN
            result = game.Try('M');
         }
         
         // THEN
         result.Should().Be("GAME OVER");
         game.Errors.Should().Be(10);
+    }
+    
+    [Fact]
+    void ReturnOnlySharp_WhenUserTypesCharactersNotInWOrdToGuess()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        var result = "";
+        
+        // WHEN
+        for (int i = 1; i <= 9; i++)
+        {
+            result = game.Try('M');
+            //THEN
+            result.Should().Be("####");
+        }
     }
 }
