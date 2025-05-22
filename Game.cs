@@ -36,13 +36,12 @@ internal class Game
                 result += charIsCorrect ? userLetterUpper : "#";
                 if (inputIsIncorrect)
                     inputIsIncorrect = !charIsCorrect;
-                
             }
         }
         Errors += inputIsIncorrect ? 1 : 0;
         _currentGuess = result;
-        if (Errors >= 10) return "GAME OVER";
-        return result;
+        
+        return (Errors >= 10) ? "GAME OVER" : result;
     }
 
     private bool IsCurrentCharacterGuessed(int index)
