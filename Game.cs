@@ -3,6 +3,7 @@
 internal class Game
 {
     private const string Victory = "VICTORY !";
+    private const string GameOver = "GAME OVER";
     private readonly string _wordToGuess;
     private string _currentGuess;
 
@@ -19,6 +20,8 @@ internal class Game
         if (!char.IsLetter(userLetter)) return _currentGuess;
 
         if (IsVictory()) return Victory;
+
+        if (IsGameOver()) return GameOver;
 
         char userLetterUpper = char.ToUpper(userLetter);
 
@@ -46,7 +49,12 @@ internal class Game
 
         if (IsVictory()) return Victory;
 
-        return (Errors >= 10) ? "GAME OVER" : result;
+        return IsGameOver() ? GameOver : result;
+    }
+
+    private bool IsGameOver()
+    {
+        return Errors >= 10;
     }
 
     private bool IsVictory()

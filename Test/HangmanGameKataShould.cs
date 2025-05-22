@@ -219,27 +219,27 @@ public class HangmanGameKataShould
         game.Errors.Should().Be(0);
     }
 
-    //[Fact]
-    //void ToName()
-    //{
-    //    // GIVEN
-    //    var game = new Game("AZER");
-    //    var result = "";
+    [Fact]
+    void ReturnAllwaisGameOverEventIfWordIsGuessedAfterGameOver()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        var result = "";
 
-    //    // WHEN
-    //    for (int i = 1; i <= 9; i++)
-    //    {
-    //        result = game.Try('M');
-    //        //THEN
-    //        result.Should().Be("####");
-    //    }
+        // WHEN
+        for (int i = 1; i <= 9; i++)
+        {
+            result = game.Try('M');
+            //THEN
+            result.Should().Be("####");
+        }
 
-    //    result = game.Try('A');
-    //    result = game.Try('z');
-    //    result = game.Try('E');
-    //    result = game.Try('r');
+        result = game.Try('A');
+        result = game.Try('z');
+        result = game.Try('E');
+        result = game.Try('r');
 
-    //    //THEN
-    //    result.Should().Be("GAME OVER");
-    //}
+        //THEN
+        result.Should().Be("GAME OVER");
+    }
 }
