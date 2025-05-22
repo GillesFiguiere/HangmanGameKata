@@ -144,4 +144,23 @@ public class HangmanGameKataShould
         result.Should().Be("##E#");
         game.Errors.Should().Be(0);
     }
+    
+    [Fact]
+    void ReturnGameOver_WhenErrorNumberIsGreaterThan10()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        var result = "";
+        
+        // WHEN
+        for (int i = 1; i <= 10; i++)
+        {
+            // WHEN
+           result = game.Try('M');
+        }
+        
+        // THEN
+        result.Should().Be("GAME OVER");
+        game.Errors.Should().Be(10);
+    }
 }

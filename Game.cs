@@ -41,7 +41,7 @@ internal class Game
         }
         Errors += inputIsIncorrect ? 1 : 0;
         _currentGuess = result;
-
+        if (Errors >= 10) return "GAME OVER";
         return result;
     }
 
