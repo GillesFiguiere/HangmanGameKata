@@ -40,6 +40,11 @@ internal class Game
         }
         Errors += inputIsIncorrect ? 1 : 0;
         _currentGuess = result;
+
+        if(_currentGuess == _wordToGuess)
+        {
+            return "VICTORY !";
+        }
         
         return (Errors >= 10) ? "GAME OVER" : result;
     }

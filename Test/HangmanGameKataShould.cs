@@ -178,4 +178,23 @@ public class HangmanGameKataShould
             result.Should().Be("####");
         }
     }
+
+    [Fact]
+    [Description("Validate that in case word guess, the user got a validation")]
+    void ReturnVictory_whenWordIsCompletelyGuessed()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        var result = "";
+
+        // WHEN
+        
+        result = game.Try('A');
+        result = game.Try('z');
+        result = game.Try('E');
+        result = game.Try('r');
+        
+        //THEN
+        result.Should().Be("VICTORY !");
+    }
 }
