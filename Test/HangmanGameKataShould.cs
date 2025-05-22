@@ -197,4 +197,49 @@ public class HangmanGameKataShould
         //THEN
         result.Should().Be("VICTORY !");
     }
+
+    [Fact]
+    [Description("Validate that in case word guess, the user got a validation")]
+    void ReturnVictory_whenWordIsCompletelyGuessedOneMoreRound()
+    {
+        // GIVEN
+        var game = new Game("AZER");
+        var result = "";
+
+        // WHEN
+
+        result = game.Try('A');
+        result = game.Try('z');
+        result = game.Try('E');
+        result = game.Try('r');
+        result = game.Try('M');
+
+        //THEN
+        result.Should().Be("VICTORY !");
+        game.Errors.Should().Be(0);
+    }
+
+    //[Fact]
+    //void ToName()
+    //{
+    //    // GIVEN
+    //    var game = new Game("AZER");
+    //    var result = "";
+
+    //    // WHEN
+    //    for (int i = 1; i <= 9; i++)
+    //    {
+    //        result = game.Try('M');
+    //        //THEN
+    //        result.Should().Be("####");
+    //    }
+
+    //    result = game.Try('A');
+    //    result = game.Try('z');
+    //    result = game.Try('E');
+    //    result = game.Try('r');
+
+    //    //THEN
+    //    result.Should().Be("GAME OVER");
+    //}
 }

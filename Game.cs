@@ -2,6 +2,7 @@
 
 internal class Game
 {
+    private const string Victory = "VICTORY !";
     private readonly string _wordToGuess;
     private string _currentGuess;
 
@@ -16,11 +17,13 @@ internal class Game
     public string Try(char userLetter)
     {
         if (!char.IsLetter(userLetter)) return _currentGuess;
-        
+
+        if (IsVictory()) return Victory;
+
         char userLetterUpper = char.ToUpper(userLetter);
 
         var result = string.Empty;
-        
+
         bool inputIsIncorrect = true;
 
         for (int i = 0; i < _wordToGuess.Length; i++)
@@ -32,7 +35,7 @@ internal class Game
             }
             else
             {
-                var charIsCorrect =  userLetterUpper == c;
+                var charIsCorrect = userLetterUpper == c;
                 result += charIsCorrect ? userLetterUpper : "#";
                 if (inputIsIncorrect)
                     inputIsIncorrect = !charIsCorrect;
@@ -41,12 +44,14 @@ internal class Game
         Errors += inputIsIncorrect ? 1 : 0;
         _currentGuess = result;
 
-        if(_currentGuess == _wordToGuess)
-        {
-            return "VICTORY !";
-        }
-        
+        if (IsVictory()) return Victory;
+
         return (Errors >= 10) ? "GAME OVER" : result;
+    }
+
+    private bool IsVictory()
+    {
+        return _wordToGuess == _currentGuess;
     }
 
     private bool IsCurrentCharacterGuessed(int index)
